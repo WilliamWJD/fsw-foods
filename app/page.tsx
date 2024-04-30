@@ -5,8 +5,25 @@ import Search from './_components/search-input'
 import ProductList from './_components/products-list'
 import { Button } from './_components/ui/button'
 import { ChevronRightIcon } from 'lucide-react'
+import { db } from './_lib/prisma'
 
-const Home = () => {
+const Home = async () => {
+  const products = await db.product.findMany({
+    where: {
+      discountPercentage: {
+        gt: 0,
+      },
+    },
+    include: {
+      restaurant: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    take: 10,
+  })
+
   return (
     <>
       <Header />
@@ -42,7 +59,7 @@ const Home = () => {
           </Button>
         </div>
 
-        <ProductList />
+        <ProductList products={products} />
       </div>
     </>
   )
