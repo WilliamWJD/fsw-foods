@@ -1,9 +1,7 @@
-const Home = () => {
-  return (
-    <div className="mx-6 bg-red-500 py-5">
-      <h1>heelo</h1>
-    </div>
-  );
-};
+import Header from './_components/header'
 
-export default Home;
+const Home = () => {
+  return <Header />
+}
+
+export default Home
